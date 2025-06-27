@@ -137,6 +137,7 @@ class ComplaintController {
       const uploadedImageUrl = await streamUpload(req.file.buffer);
 
       const result = await this.complaintService.createComplaint({
+        name: req.body.name,
         location: req.body.location,
         description: req.body.description,
         photo: uploadedImageUrl,

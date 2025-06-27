@@ -86,8 +86,12 @@ class ComplaintRepository {
 
   async create(complaintData: CreateComplaintDto): Promise<Complaint | string> {
     try {
+      const user = await this.prisma.user.findUnique({
+        where: { email: complaintData.email },
+      });
       const complaint = await this.prisma.complaint.create({
         data: {
+          name: user?.name,
           location: complaintData.location,
           description: complaintData.description,
           photo: complaintData.photo,

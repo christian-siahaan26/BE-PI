@@ -61,7 +61,7 @@ class ComplaintController {
 
       res.status(200).json({
         success: true,
-        message: responses.successGetTamus,
+        message: responses.successGetComplaints,
         ...result,
       });
     } catch (error) {
@@ -92,7 +92,7 @@ class ComplaintController {
 
       return res.status(200).json({
         success: true,
-        message: responses.successGetTamus,
+        message: responses.successGetComplaints,
         data: result.toDTO(),
       });
     } catch (error) {
@@ -153,7 +153,7 @@ class ComplaintController {
 
       res.status(201).json({
         success: true,
-        message: responses.successCreateTamu,
+        message: responses.successCreateComplaint,
         data: result.toDTO(),
       });
     } catch (error) {
@@ -217,7 +217,7 @@ class ComplaintController {
 
     res.status(200).json({
       success: true,
-      message: responses.successUpdateTamu,
+      message: responses.successUpdateComplaint,
       data: result.toDTO(),
     });
   } catch (error) {
@@ -248,7 +248,7 @@ class ComplaintController {
 
       res.status(204).json({
         success: true,
-        message: responses.successDeleteTamu,
+        message: responses.successDeleteComplaint,
       });
     } catch (error) {
       next(error);

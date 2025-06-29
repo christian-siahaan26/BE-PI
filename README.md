@@ -58,7 +58,7 @@ erDiagram
         Int id
         String name
         String no_hp
-        Boolean status_hadir
+        Boolean status
         DateTime createdAt
         DateTime updatedAt
         Boolean isDeleted

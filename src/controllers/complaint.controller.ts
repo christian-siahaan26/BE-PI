@@ -39,10 +39,10 @@ class ComplaintController {
         endDate: req.query.endDate
           ? new Date(req.query.endDate as string)
           : undefined,
-        status_completed: req.query.status_hadir
-          ? req.query.status_hadir === "true"
-          : req.query.status_hadir
-          ? req.query.status_hadir === "false"
+        status_completed: req.query.status
+          ? req.query.status === "true"
+          : req.query.status
+          ? req.query.status === "false"
           : undefined,
       };
 

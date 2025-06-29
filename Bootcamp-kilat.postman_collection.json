@@ -74,7 +74,7 @@
 			"response": []
 		},
 		{
-			"name": "Update status_hadir",
+			"name": "Update status",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -90,7 +90,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"status_hadir\": true\n}",
+					"raw": "{\n    \"status\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -129,7 +129,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"status_hadir\": true\n}",
+					"raw": "{\n    \"status\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"

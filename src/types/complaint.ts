@@ -29,5 +29,5 @@ export type ComplaintFilters = {
   search?: string;
   startDate?: Date;
   endDate?: Date;
-  status_completed?: boolean | undefined;
+  status?: boolean | undefined;
 };

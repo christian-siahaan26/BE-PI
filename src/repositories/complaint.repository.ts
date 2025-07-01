@@ -42,8 +42,8 @@ class ComplaintRepository {
         }),
         ...(filters?.startDate && { createdAt: { gte: filters.startDate } }),
         ...(filters?.endDate && { createdAt: { lte: filters.endDate } }),
-        ...(filters?.status_completed !== undefined
-          ? { status_completed: filters.status_completed }
+        ...(filters?.status !== undefined
+          ? { status: filters.status }
           : {}),
       };
 

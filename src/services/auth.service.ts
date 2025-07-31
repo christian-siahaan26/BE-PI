@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { SignUpDTO } from "../types/user";
+import { CreateUser } from "../types/user";
 import UserRepository from "../repositories/user.repository";
 import { getErrorMessage } from "../utils/error";
 
@@ -13,7 +13,7 @@ export default class AuthService {
     this.userRepository = userRepository;
   }
 
-  async signUp(user: SignUpDTO): Promise<{
+  async signUp(user: CreateUser): Promise<{
     id: number | null;
     email: string | null;
     error: string | null;
@@ -21,10 +21,12 @@ export default class AuthService {
     try {
       const hashedPassword = await bcrypt.hash(user.password, 10);
 
-      const { email, id } = await this.userRepository.createUser({
+      const { id, email, nameCitizen } = await this.userRepository.createUser({
         ...user,
         password: hashedPassword,
       });
+
+      if (nameCitizen) {}
       return {
         id,
         email,

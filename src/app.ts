@@ -6,6 +6,7 @@ import logger from "morgan";
 import { authorize } from "./middleware/auth";
 import authRouter from "./routes/auth.route";
 import complaintsRouter from "./routes/complaint.route";
+import citizenRouter from "./routes/citizen.route";
 import { setupSwagger } from "./utils/swagger";
 import dotenv from "dotenv";
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 app.use(cors({ origin: "*" }));
 
 // routes
+app.use("/api/citizen", citizenRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/complaints", authorize, complaintsRouter);
 

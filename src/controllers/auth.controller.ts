@@ -13,9 +13,9 @@ export default class AuthController {
 
   async signUp(req: Request, res: Response) {
     try {
-      const { name, email, password, role } = req.body;
+      const { email, password, role, nameCitizen, block } = req.body;
 
-      if (!name || !email || !password) {
+      if (!nameCitizen || !email || !password) {
         return res.status(400).json({
           success: false,
           message: "All fields are required",
@@ -27,8 +27,9 @@ export default class AuthController {
         email: userEmail,
         error,
       } = await this.authService.signUp({
+        nameCitizen,
+        block,
         email,
-        name,
         password,
         role
       });

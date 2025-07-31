@@ -33,17 +33,33 @@ model Complaint {
 
 model User {
   id Int @id @default(autoincrement())
-  name String 
+  nameCitizen String @unique
+  block String
   email String @unique
   password String
   role Role @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isDeleted Boolean @default(false)
+  citizenId Int
+
+  citizen Citizen @relation(fields: [citizenId], references: [id])
 
   complaints Complaint[]
 
   @@map("users")
+}
+
+model Citizen {
+  id Int @id @default(autoincrement())
+  name String @unique
+  block String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+
+  @@map("citizens")
 }
 
 enum Role {

@@ -91,7 +91,7 @@ class ComplaintRepository {
       });
       const complaint = await this.prisma.complaint.create({
         data: {
-          name: user?.name,
+          name: user?.nameCitizen,
           location: complaintData.location,
           description: complaintData.description,
           photo: complaintData.photo,

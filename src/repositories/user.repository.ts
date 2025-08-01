@@ -29,9 +29,14 @@ export default class UserRepository {
         throw new Error(`Citizen with block '${userData.block}' not found`);
       }
 
+      if (citizen.nik !== userData.nik) {
+        throw new Error(`Citizen with nik '${userData.nik}' not found`);
+      }
+
       const user = await this.prisma.user.create({
         data: {
           nameCitizen: citizen.name,
+          nik: citizen.nik,
           block: citizen.block,
           email: userData.email,
           password: userData.password,

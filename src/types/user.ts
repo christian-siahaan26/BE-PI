@@ -3,6 +3,7 @@ export type User = {
   citizen: {
     name: string;
     block: string;
+    nik: string;
   };
   email: string;
   password: string;
@@ -13,7 +14,8 @@ export type User = {
 
 export type CreateUser = {
   nameCitizen: string;
-  block: string
+  nik: string;
+  block: string;
   email: string;
   password: string;
   role?: "USER" | "ADMIN";

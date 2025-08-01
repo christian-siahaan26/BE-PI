@@ -12,17 +12,19 @@ class CitizenService {
   async createCitizen(citizen: CitizenDTO): Promise<{
     name: string | null;
     block: string | null;
+    nik: string | null;
     createdAt: Date | null;
     error: string | null;
   }> {
     try {
-      const { name, block, createdAt } =
+      const { name, nik, block, createdAt } =
         await this.citizenRepository.createCitizen({
           ...citizen,
         });
 
         return {
             name,
+            nik,
             block,
             createdAt,
             error: null
@@ -30,6 +32,7 @@ class CitizenService {
     } catch (error) {
         return {
             name: null,
+            nik: null,
             block: null,
             createdAt: null,
             error: getErrorMessage(error)

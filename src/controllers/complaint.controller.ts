@@ -15,7 +15,7 @@ class ComplaintController {
   }
 
   async getAllComplaints(req: AuthRequest, res: Response, next: NextFunction) {
-    const id_user = req.user?.role === "USER" ? req.user.id : null;
+    const id_user = req.user?.role === "USER" ? req.user.idUser : null;
     try {
       if (!req.user) {
         return res.status(401).json({
@@ -137,7 +137,7 @@ class ComplaintController {
       const uploadedImageUrl = await streamUpload(req.file.buffer);
 
       const result = await this.complaintService.createComplaint({
-        name: req.body.name,
+        nameCitizen: req.body.nameCitizen,
         location: req.body.location,
         description: req.body.description,
         photo: uploadedImageUrl,

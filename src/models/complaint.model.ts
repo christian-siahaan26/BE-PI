@@ -1,8 +1,8 @@
 import { type Complaint as PrismaComplaint } from "@prisma/client";
 
 class Complaint {
-  private id: number;
-  private name: string;
+  private idComplaint: number;
+  private nameCitizen: string;
   private location: string;
   private description: string;
   private photo: string;
@@ -10,16 +10,16 @@ class Complaint {
   private createdAt: Date;
 
   constructor(
-    id: number,
-    name: string,
+    idComplaint: number,
+    nameCitizen: string,
     location: string,
     description: string,
     photo: string,
     status: boolean,
     createdAt: Date
   ) {
-    this.id = id;
-    this.name = name;
+    this.idComplaint = idComplaint;
+    this.nameCitizen = nameCitizen;
     this.location = location;
     this.description = description;
     this.photo = photo;
@@ -29,8 +29,8 @@ class Complaint {
 
   static fromEntity(prismaComplaint: PrismaComplaint) {
     return new Complaint(
-      prismaComplaint.id,
-      prismaComplaint.name,
+      prismaComplaint.idComplaint,
+      prismaComplaint.nameCitizen,
       prismaComplaint.location,
       prismaComplaint.description,
       prismaComplaint.photo,
@@ -41,8 +41,8 @@ class Complaint {
 
   toDTO() {
     return {
-      id: this.id,
-      name: this.name,
+      idComplaint: this.idComplaint,
+      nameCitizen: this.nameCitizen,
       location: this.location,
       description: this.description,
       photo: this.photo,

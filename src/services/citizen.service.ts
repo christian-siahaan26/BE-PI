@@ -47,9 +47,9 @@ class CitizenService {
     }
   }
 
-  async getCitizenById(id: number): Promise<CitizenModel | string> {
+  async getCitizenById(idCitizen: number): Promise<CitizenModel | string> {
     try {
-      const citizen = await this.citizenRepository.getCitizenById(id);
+      const citizen = await this.citizenRepository.getCitizenById(idCitizen);
 
       if (typeof citizen === "string") {
         return citizen;
@@ -66,20 +66,20 @@ class CitizenService {
   }
 
   async createCitizen(citizen: CreateCitizen): Promise<{
-    name: string | null;
+    nameCitizen: string | null;
     block: string | null;
     nik: string | null;
     createdAt: Date | null;
     error: string | null;
   }> {
     try {
-      const { name, nik, block, createdAt } =
+      const { nameCitizen, nik, block, createdAt } =
         await this.citizenRepository.createCitizen({
           ...citizen,
         });
 
       return {
-        name,
+        nameCitizen,
         nik,
         block,
         createdAt,
@@ -87,7 +87,7 @@ class CitizenService {
       };
     } catch (error) {
       return {
-        name: null,
+        nameCitizen: null,
         nik: null,
         block: null,
         createdAt: null,

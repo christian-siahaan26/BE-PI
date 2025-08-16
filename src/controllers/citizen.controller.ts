@@ -71,8 +71,8 @@ class CitizenController {
 
   async createCitizen(req: Request, res: Response, next: NextFunction) {
     try {
-      const { name, nik, block } = req.body;
-      if (!name || !nik || !block) {
+      const { nameCitizen, nik, block } = req.body;
+      if (!nameCitizen || !nik || !block) {
         return res.status(400).json({
           success: false,
           message: "All field are required",
@@ -80,12 +80,12 @@ class CitizenController {
       }
 
       const {
-        name: citizenName,
+        nameCitizen: citizenName,
         nik: citizenNik,
         block: citizenBlock,
         error,
       } = await this.citizenService.createCitizen({
-        name,
+        nameCitizen,
         nik,
         block,
       });
@@ -103,7 +103,7 @@ class CitizenController {
         success: true,
         message: "Citizen successfuly created",
         data: {
-          name,
+          nameCitizen,
           nik,
           block,
         },

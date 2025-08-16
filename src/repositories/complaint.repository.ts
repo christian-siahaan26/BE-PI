@@ -91,7 +91,7 @@ class ComplaintRepository {
       });
       const complaint = await this.prisma.complaint.create({
         data: {
-          name: user?.nameCitizen,
+          nameCitizen: user?.nameCitizen,
           location: complaintData.location,
           description: complaintData.description,
           photo: complaintData.photo,
@@ -111,10 +111,10 @@ class ComplaintRepository {
     }
   }
 
-  async update(id: number, complaintData: UpdateComplaintDto): Promise<Complaint | string> {
+  async update(idComplaint: number, complaintData: UpdateComplaintDto): Promise<Complaint | string> {
     try {
       const complaint = await this.prisma.complaint.update({
-        where: { id } as Prisma.ComplaintWhereUniqueInput,
+        where: { idComplaint } as Prisma.ComplaintWhereUniqueInput,
         data: {
           ...complaintData,
           updatedAt: new Date(),
@@ -126,10 +126,10 @@ class ComplaintRepository {
     }
   }
 
-  async softDelete(id: number): Promise<Complaint | string> {
+  async softDelete(idComplaint: number): Promise<Complaint | string> {
     try {
       const complaint = await this.prisma.complaint.update({
-        where: { id } as Prisma.ComplaintWhereUniqueInput,
+        where: { idComplaint } as Prisma.ComplaintWhereUniqueInput,
         data: {
           isDeleted: true,
           updatedAt: new Date(),

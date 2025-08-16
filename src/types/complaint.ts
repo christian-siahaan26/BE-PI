@@ -1,5 +1,5 @@
 export type Complaint = {
-  id: number;
+  idComplaint: number;
   user: { name: string; };
   location: string;
   description: string;
@@ -10,7 +10,7 @@ export type Complaint = {
 };
 
 export type CreateComplaintDto = {
-  name: string;
+  nameCitizen: string;
   location: string;
   description: string;
   photo: string;

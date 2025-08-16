@@ -1,22 +1,22 @@
 import { Citizen as PrismaCitizen } from "@prisma/client/default";
 
 class CitizenModel {
-  private id: number;
-  private name: string;
+  private idCitizen: number;
+  private nameCitizen: string;
   private nik: string;
   private block: string;
 
-  constructor(id: number, name: string, nik: string, block: string) {
-    this.id = id;
-    this.name = name;
+  constructor(idCitizen: number, nameCitizen: string, nik: string, block: string) {
+    this.idCitizen = idCitizen;
+    this.nameCitizen = nameCitizen;
     this.nik = nik;
     this.block = block;
   }
 
   static formEntity(prismaCitizen: PrismaCitizen) {
     return new CitizenModel(
-      prismaCitizen.id,
-      prismaCitizen.name,
+      prismaCitizen.idCitizen,
+      prismaCitizen.nameCitizen,
       prismaCitizen.nik,
       prismaCitizen.block
     );
@@ -24,8 +24,8 @@ class CitizenModel {
 
   toDTO() {
     return {
-      id: this.id,
-      name: this.name,
+      idCitizen: this.idCitizen,
+      nameCitizen: this.nameCitizen,
       nik: this.nik,
       block: this.block,
     };

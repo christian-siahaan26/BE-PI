@@ -25,7 +25,7 @@ class CitizenRepository {
         ...(filters?.search && {
           OR: [
             {
-              name: {
+              nameCitizen: {
                 contains: filters.search,
                 mode: Prisma.QueryMode.insensitive,
               },
@@ -67,10 +67,10 @@ class CitizenRepository {
     }
   }
 
-  async getCitizenById(id: number): Promise<CitizenModel | null | string> {
+  async getCitizenById(idCitizen: number): Promise<CitizenModel | null | string> {
     try {
       const citizen = await this.prisma.citizen.findFirst({
-        where: { id } as Prisma.CitizenWhereInput,
+        where: { idCitizen } as Prisma.CitizenWhereInput,
       });
 
       return citizen ? CitizenModel.formEntity(citizen) : null;
@@ -89,15 +89,15 @@ class CitizenRepository {
         if (error.code === "P2002") {
           const target = error.meta?.target as string[];
 
-          if (target.includes("name") && target.includes("nik")) {
+          if (target.includes("nameCitizen") && target.includes("nik")) {
             throw new Error(
-              `User dengan nama '${citizen.name}' dan nik '${citizen.nik}'sudah terdaftar.`
+              `User dengan nama '${citizen.nameCitizen}' dan nik '${citizen.nik}'sudah terdaftar.`
             );
           }
 
-          if (target.includes("name")) {
+          if (target.includes("nameCitizen")) {
             throw new Error(
-              `User dengan name '${citizen.name}' sudah terdaftar.`
+              `User dengan name '${citizen.nameCitizen}' sudah terdaftar.`
             );
           }
           if (target.includes("nik")) {
@@ -119,13 +119,13 @@ class CitizenRepository {
   }
 
   async updateCitizen(
-    id: number,
+    idCitizen: number,
     citizenData: UpdateCitizen
   ): Promise<CitizenModel | string> {
     try {
       const citizen = await this.prisma.citizen.update({
         where: {
-          id,
+          idCitizen,
         } as Prisma.CitizenWhereUniqueInput,
         data: {
           ...citizenData,
@@ -139,10 +139,10 @@ class CitizenRepository {
     }
   }
 
-  async deleteCitizen(id: number) {
+  async deleteCitizen(idCitizen: number) {
     try {
       const citizen = await this.prisma.citizen.delete({
-        where: { id },
+        where: { idCitizen },
       });
 
       return citizen;
@@ -151,11 +151,11 @@ class CitizenRepository {
     }
   }
 
-  async getCitizenByName(name: string) {
+  async getCitizenByName(nameCitizen: string) {
     try {
       return await this.prisma.citizen.findUnique({
         where: {
-          name,
+          nameCitizen,
         },
       });
     } catch (error) {

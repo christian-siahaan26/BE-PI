@@ -1,5 +1,5 @@
 export type CitizenDTO = {
-  id: number
+  idCitizen: number
   nameCitizen: string;
   nik: string;
   block: string;

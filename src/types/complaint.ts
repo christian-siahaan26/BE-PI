@@ -1,5 +1,5 @@
 export type Complaint = {
-  id: number;
+  idComplaint: number;
   user: { name: string; };
   location: string;
   description: string;

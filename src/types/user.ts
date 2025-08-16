@@ -1,5 +1,5 @@
 export type User = {
-  id: number;
+  idUser: number;
   citizen: {
     name: string;
     block: string;

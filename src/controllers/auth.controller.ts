@@ -23,7 +23,7 @@ export default class AuthController {
       }
 
       const {
-        id,
+        idUser,
         email: userEmail,
         error,
       } = await this.authService.signUp({
@@ -43,7 +43,7 @@ export default class AuthController {
         });
       }
 
-      const token = generateToken(userEmail as string, id as number);
+      const token = generateToken(userEmail as string, idUser as number);
       return res.status(201).json({
         success: true,
         message: "User created successfully",

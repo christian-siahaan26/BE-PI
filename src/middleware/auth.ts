@@ -8,7 +8,7 @@ dotenv.config();
 const SECRET_KEY = process.env.JWT_SECRET as string;
 
 export interface AuthRequest extends Request {
-  user?: { id: number; email: string; role: string };
+  user?: { idUser: number; email: string; role: string };
 }
 
 export const authorize = (
@@ -33,7 +33,7 @@ export const authorize = (
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY) as {
-      id: number;
+      idUser: number;
       email: string;
       role: string;
     };

@@ -89,6 +89,7 @@ class ComplaintService {
     const existingComplaint = await this.complaintRepository.findById(
       id,
     );
+    
     if (typeof existingComplaint === "string") {
       return existingComplaint;
     }

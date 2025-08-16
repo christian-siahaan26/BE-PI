@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Complaint {
-  id Int @id @default(autoincrement())
+  idComplaint Int @id @default(autoincrement())
   name String 
   location String
   description String
@@ -25,14 +25,14 @@ model Complaint {
   isDeleted Boolean @default(false)
   userId Int
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [idUser])
 
   @@map("complaints")
 
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  idUser Int @id @default(autoincrement())
   nameCitizen String @unique
   nik String @unique
   block String
@@ -41,10 +41,9 @@ model User {
   role Role @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  isDeleted Boolean @default(false)
   citizenId Int
 
-  citizen Citizen @relation(fields: [citizenId], references: [id])
+  citizen Citizen @relation(fields: [citizenId], references: [idCitizen])
 
   complaints Complaint[]
 
@@ -52,8 +51,8 @@ model User {
 }
 
 model Citizen {
-  id Int @id @default(autoincrement())
-  name String @unique
+  idCitizen Int @id @default(autoincrement())
+  nameCitizen String @unique
   nik String @unique
   block String
   createdAt DateTime @default(now())

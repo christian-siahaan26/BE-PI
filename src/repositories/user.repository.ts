@@ -15,7 +15,7 @@ export default class UserRepository {
     try {
       const citizen = await this.prisma.citizen.findUnique({
         where: {
-          name: userData.nameCitizen,
+          nameCitizen: userData.nameCitizen,
         },
       });
 
@@ -35,7 +35,7 @@ export default class UserRepository {
 
       const user = await this.prisma.user.create({
         data: {
-          nameCitizen: citizen.name,
+          nameCitizen: citizen.nameCitizen,
           nik: citizen.nik,
           block: citizen.block,
           email: userData.email,
@@ -43,7 +43,7 @@ export default class UserRepository {
           role: userData.role || "USER",
           citizen: {
             connect: {
-              name: userData.nameCitizen,
+              nameCitizen: userData.nameCitizen,
             },
           },
         },
@@ -85,7 +85,7 @@ export default class UserRepository {
       }
 
       console.error("Unexpected error in createUser:", getErrorMessage(error));
-      throw new Error("An unexpected error occurred while creating the user.");
+      throw new Error(getErrorMessage(error));
     }
   }
 

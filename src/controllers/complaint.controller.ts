@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { responses } from "../constants";
+import { responsesComplaint } from "../constants";
 import { AuthRequest } from "../middleware/auth";
 import ComplaintService from "../services/complaint.service";
 import { ComplaintFilters } from "../types/complaint";
@@ -15,10 +15,10 @@ class ComplaintController {
   }
 
   async getAllComplaints(req: AuthRequest, res: Response, next: NextFunction) {
-    const id_user = req.user?.role === "USER" ? req.user.id : null ;
+    const id_user = req.user?.role === "USER" ? req.user.idUser : null;
     try {
       if (!req.user) {
-        return res.status(500).json({
+        return res.status(401).json({
           success: false,
           message: "Unauthorized",
         });
@@ -61,8 +61,8 @@ class ComplaintController {
 
       res.status(200).json({
         success: true,
-        message: responses.successGetComplaints,
-        ...result,
+        message: responsesComplaint.successGetComplaints,
+        data: result,
       });
     } catch (error) {
       next(error);
@@ -72,14 +72,14 @@ class ComplaintController {
   async getComplaintById(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
-        return res.status(500).json({
+        return res.status(401).json({
           success: false,
           message: "Unauthorized",
         });
       }
 
       const result = await this.complaintService.getComplaintById(
-        Number(req.params.idComplaint),
+        Number(req.params.idComplaint)
         // req.user.id
       );
 
@@ -92,8 +92,8 @@ class ComplaintController {
 
       return res.status(200).json({
         success: true,
-        message: responses.successGetComplaints,
-        data: result.toDTO(),
+        message: responsesComplaint.successGetComplaints,
+        data: result,
       });
     } catch (error) {
       next(error);
@@ -103,7 +103,7 @@ class ComplaintController {
   async createComplaint(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
-        return res.status(500).json({
+        return res.status(401).json({
           success: false,
           message: "Unauthorized",
         });
@@ -153,8 +153,8 @@ class ComplaintController {
 
       res.status(201).json({
         success: true,
-        message: responses.successCreateComplaint,
-        data: result.toDTO(),
+        message: responsesComplaint.successCreateComplaint,
+        data: result,
       });
     } catch (error) {
       next(error);
@@ -162,80 +162,84 @@ class ComplaintController {
   }
 
   async updateComplaint(req: AuthRequest, res: Response, next: NextFunction) {
-  try {
-    if (!req.user) {
-      return res.status(500).json({
-        success: false,
-        message: "Unauthorized",
-      });
-    }
-
-    let photoUrl;
-
-    if (req.file && req.file.buffer) {
-      const streamUpload = (buffer: Buffer): Promise<string> => {
-        return new Promise((resolve, reject) => {
-          const stream = cloudinary.uploader.upload_stream(
-            { folder: "complaints" },
-            (error, result) => {
-              if (result?.secure_url) {
-                resolve(result.secure_url);
-              } else {
-                reject(error || new Error("Upload failed"));
-              }
-            }
-          );
-          streamifier.createReadStream(buffer).pipe(stream);
-        });
-      };
-
-      photoUrl = await streamUpload(req.file.buffer);
-    }
-
-    // Hapus field photo dari req.body untuk menghindari overwrite
-    const { photo, ...bodyWithoutPhoto } = req.body;
-
-    // Buat updateData tanpa field photo dari body
-    const updateData = {
-      ...bodyWithoutPhoto,
-      status: req.body.status === "true" ? true : false,
-      ...(photoUrl ? { photo: photoUrl } : {}), // Hanya include photo jika ada upload baru
-    };
-
-    const result = await this.complaintService.updateComplaint(
-      // req.user.id,
-      Number(req.params.idComplaint),
-      updateData
-    );
-
-    if (typeof result === "string") {
-      return res.status(400).json({
-        success: false,
-        message: result,
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: responses.successUpdateComplaint,
-      data: result.toDTO(),
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
-  async softDeleteComplaint(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
-        return res.status(500).json({
+        return res.status(401).json({
+          success: false,
+          message: "Unauthorized",
+        });
+      }
+
+      let photoUrl;
+
+      if (req.file && req.file.buffer) {
+        const streamUpload = (buffer: Buffer): Promise<string> => {
+          return new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+              { folder: "complaints" },
+              (error, result) => {
+                if (result?.secure_url) {
+                  resolve(result.secure_url);
+                } else {
+                  reject(error || new Error("Upload failed"));
+                }
+              }
+            );
+            streamifier.createReadStream(buffer).pipe(stream);
+          });
+        };
+
+        photoUrl = await streamUpload(req.file.buffer);
+      }
+
+      // Hapus field photo dari req.body untuk menghindari overwrite
+      const { photo, ...bodyWithoutPhoto } = req.body;
+
+      // Buat updateData tanpa field photo dari body
+      const updateData = {
+        ...bodyWithoutPhoto,
+        status: req.body.status === "true" ? true : false,
+        ...(photoUrl ? { photo: photoUrl } : {}), // Hanya include photo jika ada upload baru
+      };
+
+      const result = await this.complaintService.updateComplaint(
+        // req.user.id,
+        Number(req.params.idComplaint),
+        updateData
+      );
+
+      if (typeof result === "string") {
+        return res.status(400).json({
+          success: false,
+          message: result,
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        message: responsesComplaint.successUpdateComplaint,
+        data: result.toDTO(),
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async softDeleteComplaint(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      if (!req.user) {
+        return res.status(401).json({
           success: false,
           message: "Unauthorized",
         });
       }
 
       const result = await this.complaintService.softDeleteComplaint(
-        Number(req.params.idComplaint),
+        Number(req.params.idComplaint)
         // req.user.id
       );
 
@@ -248,7 +252,7 @@ class ComplaintController {
 
       res.status(204).json({
         success: true,
-        message: responses.successDeleteComplaint,
+        message: responsesComplaint.successDeleteComplaint,
       });
     } catch (error) {
       next(error);

@@ -1,7 +1,7 @@
 import { type Complaint as PrismaComplaint } from "@prisma/client";
 
 class Complaint {
-  private id: number;
+  private idComplaint: number;
   private name: string;
   private location: string;
   private description: string;
@@ -10,7 +10,7 @@ class Complaint {
   private createdAt: Date;
 
   constructor(
-    id: number,
+    idComplaint: number,
     name: string,
     location: string,
     description: string,
@@ -18,7 +18,7 @@ class Complaint {
     status: boolean,
     createdAt: Date
   ) {
-    this.id = id;
+    this.idComplaint = idComplaint;
     this.name = name;
     this.location = location;
     this.description = description;
@@ -29,7 +29,7 @@ class Complaint {
 
   static fromEntity(prismaComplaint: PrismaComplaint) {
     return new Complaint(
-      prismaComplaint.id,
+      prismaComplaint.idComplaint,
       prismaComplaint.name,
       prismaComplaint.location,
       prismaComplaint.description,
@@ -41,7 +41,7 @@ class Complaint {
 
   toDTO() {
     return {
-      id: this.id,
+      idComplaint: this.idComplaint,
       name: this.name,
       location: this.location,
       description: this.description,

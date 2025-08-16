@@ -68,12 +68,12 @@ class ComplaintRepository {
     }
   }
 
-  async findById(id: number): Promise<Complaint | null | string> {
-    console.log("id: ", id);
+  async findById(idComplaint: number): Promise<Complaint | null | string> {
+    console.log("idComplaint: ", idComplaint);
     try {
       const complaint = await this.prisma.complaint.findFirst({
         where: {
-          id,
+          idComplaint,
           // userId,
           isDeleted: false,
         } as Prisma.ComplaintWhereInput,

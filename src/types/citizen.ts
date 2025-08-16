@@ -1,6 +1,6 @@
 export type CitizenDTO = {
-  idCitizen: number
-  nameCitizen: string;
+  id: number
+  name: string;
   nik: string;
   block: string;
   createdAt: Date
@@ -8,13 +8,13 @@ export type CitizenDTO = {
 };
 
 export type CreateCitizen = {
-  nameCitizen: string;
+  name: string;
   nik: string;
   block: string;
 }
 
 export type UpdateCitizen = {
-  nameCitizen?: string
+  name?: string
   nik?: string
   block?: string
 }

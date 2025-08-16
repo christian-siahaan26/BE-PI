@@ -66,20 +66,20 @@ class CitizenService {
   }
 
   async createCitizen(citizen: CreateCitizen): Promise<{
-    nameCitizen: string | null;
+    name: string | null;
     block: string | null;
     nik: string | null;
     createdAt: Date | null;
     error: string | null;
   }> {
     try {
-      const { nameCitizen, nik, block, createdAt } =
+      const { name, nik, block, createdAt } =
         await this.citizenRepository.createCitizen({
           ...citizen,
         });
 
       return {
-        nameCitizen,
+        name,
         nik,
         block,
         createdAt,
@@ -87,7 +87,7 @@ class CitizenService {
       };
     } catch (error) {
       return {
-        nameCitizen: null,
+        name: null,
         nik: null,
         block: null,
         createdAt: null,

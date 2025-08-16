@@ -15,7 +15,7 @@ export default class UserRepository {
     try {
       const citizen = await this.prisma.citizen.findUnique({
         where: {
-          nameCitizen: userData.nameCitizen,
+          name: userData.nameCitizen,
         },
       });
 
@@ -35,7 +35,7 @@ export default class UserRepository {
 
       const user = await this.prisma.user.create({
         data: {
-          nameCitizen: citizen.nameCitizen,
+          nameCitizen: citizen.name,
           nik: citizen.nik,
           block: citizen.block,
           email: userData.email,
@@ -43,7 +43,7 @@ export default class UserRepository {
           role: userData.role || "USER",
           citizen: {
             connect: {
-              nameCitizen: userData.nameCitizen,
+              name: userData.nameCitizen,
             },
           },
         },

@@ -1,20 +1,20 @@
 import { type User as PrismaUser } from "@prisma/client";
 
 export default class UserModel {
-  private idUser: number;
+  private id: number;
   private nameCitizen: string;
   private nik: string;
   private block: string;
   private email: string;
 
   constructor(
-    idUser: number,
+    id: number,
     nameCitizen: string,
     nik: string,
     block: string,
     email: string
   ) {
-    this.idUser = idUser;
+    this.id = id;
     this.nameCitizen = nameCitizen;
     this.nik = nik;
     this.block = block;
@@ -23,7 +23,7 @@ export default class UserModel {
 
   static fromEntity(prismaUser: PrismaUser) {
     return new UserModel(
-      prismaUser.idUser,
+      prismaUser.id,
       prismaUser.nameCitizen,
       prismaUser.nik,
       prismaUser.block,
@@ -33,7 +33,7 @@ export default class UserModel {
 
   toDTO() {
     return {
-      idUser: this.idUser,
+      id: this.id,
       nameCitizen: this.nameCitizen,
       nik: this.nik,
       block: this.block,

@@ -14,27 +14,27 @@ export default class AuthService {
   }
 
   async signUp(user: CreateUser): Promise<{
-    idUser: number | null;
+    id: number | null;
     email: string | null;
     error: string | null;
   }> {
     try {
       const hashedPassword = await bcrypt.hash(user.password, 10);
 
-      const { idUser, email, nameCitizen } = await this.userRepository.createUser({
+      const { id, email, nameCitizen } = await this.userRepository.createUser({
         ...user,
         password: hashedPassword,
       });
 
       if (nameCitizen) {}
       return {
-        idUser,
+        id,
         email,
         error: null,
       };
     } catch (error) {
       return {
-        idUser: null,
+        id: null,
         email: null,
         error: getErrorMessage(error),
       };
@@ -55,7 +55,7 @@ export default class AuthService {
       const token = jwt.sign(
         {
           email: user.email,
-          idUser: user.idUser,
+          id: user.id,
           role: user.role,
         },
         SECRET_KEY,

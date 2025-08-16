@@ -111,10 +111,10 @@ class ComplaintRepository {
     }
   }
 
-  async update(idComplaint: number, complaintData: UpdateComplaintDto): Promise<Complaint | string> {
+  async update(id: number, complaintData: UpdateComplaintDto): Promise<Complaint | string> {
     try {
       const complaint = await this.prisma.complaint.update({
-        where: { idComplaint } as Prisma.ComplaintWhereUniqueInput,
+        where: { id } as Prisma.ComplaintWhereUniqueInput,
         data: {
           ...complaintData,
           updatedAt: new Date(),
@@ -126,10 +126,10 @@ class ComplaintRepository {
     }
   }
 
-  async softDelete(idComplaint: number): Promise<Complaint | string> {
+  async softDelete(id: number): Promise<Complaint | string> {
     try {
       const complaint = await this.prisma.complaint.update({
-        where: { idComplaint } as Prisma.ComplaintWhereUniqueInput,
+        where: { id } as Prisma.ComplaintWhereUniqueInput,
         data: {
           isDeleted: true,
           updatedAt: new Date(),

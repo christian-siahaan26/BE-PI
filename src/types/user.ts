@@ -1,7 +1,7 @@
 export type User = {
-  idUser: number;
+  id: number;
   citizen: {
-    name: string;
+    nameCitizen: string;
     block: string;
     nik: string;
   };

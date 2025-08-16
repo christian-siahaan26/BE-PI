@@ -15,7 +15,7 @@ class ComplaintController {
   }
 
   async getAllComplaints(req: AuthRequest, res: Response, next: NextFunction) {
-    const id_user = req.user?.role === "USER" ? req.user.idUser : null;
+    const id_user = req.user?.role === "USER" ? req.user.id : null;
     try {
       if (!req.user) {
         return res.status(401).json({

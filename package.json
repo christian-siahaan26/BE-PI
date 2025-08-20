@@ -1,5 +1,5 @@
 {
-  "name": "BE-PI",
+  "name": "be-pi",
   "version": "0.0.0",
   "private": true,
   "prisma": {

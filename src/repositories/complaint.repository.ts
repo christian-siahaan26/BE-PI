@@ -12,7 +12,7 @@ class ComplaintRepository {
   }
 
   async findAll(
-    userId: number | null,
+    idUser: number | null,
     pagination?: PaginationParams,
     filters?: ComplaintFilters
   ): Promise<{ complaints: Complaint[]; total: number } | string> {
@@ -23,7 +23,7 @@ class ComplaintRepository {
 
       const where: Prisma.ComplaintWhereInput = {
         isDeleted: false,
-        ...(userId ? { userId: userId } : {}),
+        ...(idUser ? { idUser: idUser } : {}),
         ...(filters?.search && {
           OR: [
             {
